@@ -1,0 +1,5 @@
+*.terraform*
+*.tfstate*
+*terraform-provider-aws_v3.76.1_x5*
+*darwin_arm64*
+3.76.1
