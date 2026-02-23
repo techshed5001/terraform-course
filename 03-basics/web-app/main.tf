@@ -2,10 +2,10 @@ terraform {
   # Assumes s3 bucket and dynamo DB table already set up
   # See /code/03-basics/aws-backend
   backend "s3" {
-    bucket         = "devops-directive-tf-state"
+    bucket         = "devops-directive-tf-state-cwl"
     key            = "03-basics/web-app/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "terraform-state-locking"
+    dynamodb_table = "terraform-state-locking-cwl"
     encrypt        = true
   }
 
@@ -122,13 +122,13 @@ resource "aws_lb_target_group" "instances" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "instance_1" {
+resource "aws_lb_target_group_attachment" "instance_cwl1" {
   target_group_arn = aws_lb_target_group.instances.arn
   target_id        = aws_instance.instance_1.id
   port             = 8080
 }
 
-resource "aws_lb_target_group_attachment" "instance_2" {
+resource "aws_lb_target_group_attachment" "instance_cwl2" {
   target_group_arn = aws_lb_target_group.instances.arn
   target_id        = aws_instance.instance_2.id
   port             = 8080
@@ -187,12 +187,12 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_route53_zone" "primary" {
-  name = "devopsdeployed.com"
+  name = "devopsdeployed-cwl.com"
 }
 
 resource "aws_route53_record" "root" {
   zone_id = aws_route53_zone.primary.zone_id
-  name    = "devopsdeployed.com"
+  name    = "devopsdeployed-cwl.com"
   type    = "A"
 
   alias {
